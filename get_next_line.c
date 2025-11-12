@@ -89,11 +89,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	line = ft_extract_line(buff, &index);
-	if (!line || !*line)
-	{
-		free(buff);
-		return (NULL);
-	}
 	tp = ft_strdup(&buff[index]);
 	free(buff);
 	buff = tp;

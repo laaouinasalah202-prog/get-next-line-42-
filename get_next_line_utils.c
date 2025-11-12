@@ -58,19 +58,15 @@ char	*ft_strdup(char *s)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char		*result;
-	int	i;
-	int	j;
+	char	*result;
+	int		i;
+	int		j;
 
 	if (!s1 || !s2)
 		return (NULL);
-	result = (char *)malloc(sizeof(char) * (ft_strlen(s2) + ft_strlen(s1) + 1));
+	result = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!result)
-	{
-		free(s1);
-		free(s2);
 		return (NULL);
-	}
 	i = 0;
 	while (s1[i])
 	{
