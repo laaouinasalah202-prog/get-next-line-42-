@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slaaouin <slaaouin@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-11-08 20:13:08 by slaaouin          #+#    #+#             */
-/*   Updated: 2025-11-08 20:13:08 by slaaouin         ###   ########.fr       */
+/*   Created: 2025-11-15 12:00:45 by slaaouin          #+#    #+#             */
+/*   Updated: 2025-11-15 12:00:45 by slaaouin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+
+#include "get_next_line_bonus.h"
 
 char	*ft_extract_line(char *str, int *index)
 {
@@ -71,26 +72,26 @@ char	*ft_read_file(int fd, char *buff)
 
 char	*get_next_line(int fd)
 {
-	static char	*buff;
+	static char	*buff[1024];
 	char		*line;
 	int			index;
 	char		*tp;
 
-	if (fd < 0 ||  BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	index = 0;
-	if (!buff)
-		buff = ft_strdup("");
-	buff = ft_read_file(fd, buff);
-	if (!buff || !*buff)
+	if (!buff[fd])
+		buff[fd] = ft_strdup("");
+	buff[fd] = ft_read_file(fd, buff[fd]);
+	if (!buff[fd] || !*buff[fd])
 	{
-		free(buff);
-		buff = NULL;
+		free(buff[fd]);
+		buff[fd] = NULL;
 		return (NULL);
 	}
-	line = ft_extract_line(buff, &index);
-	tp = ft_strdup(&buff[index]);
-	free(buff);
-	buff = tp;
+	line = ft_extract_line(buff[fd], &index);
+	tp = ft_strdup(&buff[fd][index]);
+	free(buff[fd]);
+	buff[fd] = tp;
 	return (line);
 }
